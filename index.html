@@ -40,6 +40,7 @@ header .sub{font-size:clamp(.9rem,2.6vw,1.15rem);opacity:.95}
 .summer-card h2{margin:0;font-size:clamp(1.4rem,6vw,2.4rem)}
 .summer-card .big{font-size:clamp(1.3rem,5.5vw,2.2rem);font-weight:bold;font-variant-numeric:tabular-nums;margin:8px 0}
 .summer-card .small{font-size:clamp(.85rem,3vw,1rem)}
+.summer-card.bali{background:linear-gradient(135deg,#b8f3e6,#4fc3b0);color:#0f3b35}
 h3.section{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.3);font-size:clamp(1.1rem,4vw,1.5rem);margin:20px 4px 8px}
 .list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
 .item{background:var(--card);border-radius:18px;padding:14px 16px;box-shadow:0 4px 12px rgba(0,0,0,.12);display:flex;gap:12px;align-items:flex-start}
@@ -84,6 +85,12 @@ footer a{color:#fff}
  <h2>☀️ Summer! ☀️</h2>
  <div class="big" id="summerBig">&nbsp;</div>
  <div class="small" id="summerSmall">&nbsp;</div>
+</section>
+
+<section class="summer-card bali">
+ <h2>🌴 Go to Bali! 🌴</h2>
+ <div class="big" id="baliBig">&nbsp;</div>
+ <div class="small" id="baliSmall">Thu, Sep 16, 2027</div>
 </section>
 
 <h3 class="section">📅 Every break this year</h3>
@@ -207,8 +214,10 @@ function tick(){
   document.getElementById("summerSmall").textContent = "You made it, Mrs. Plett!";
  }
 }
+var BALI = Date.parse("2027-09-16T00:00:00-06:00");
+function tickBali(){ var ms = now().getTime(); document.getElementById("baliBig").textContent = ms < BALI ? fmt(BALI - ms) : "🌺 You're in Bali! 🌺"; document.getElementById("baliSmall").textContent = ms < BALI ? plural(Math.ceil((BALI - ms) / 86400000), "day") + " until Bali (Thu, Sep 16, 2027)" : "Have the best trip, Mrs. Plett!"; }
 function setClock(ms){ document.getElementById("heroBody").style.display = (ms <= 0 && document.body.className === "summer") ? "none" : "";  var x = split(ms); document.getElementById("cd").textContent = x.d; document.getElementById("ch").textContent = pad(x.h); document.getElementById("cm").textContent = pad(x.m); document.getElementById("cs").textContent = pad(x.s); }
-tick(); setInterval(tick, 1000);
+tick(); tickBali(); setInterval(function(){ tick(); tickBali(); }, 1000);
 </script>
 </body>
 </html>
